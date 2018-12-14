@@ -17,3 +17,7 @@
     repo: 'https://github.com/dgreid/HomeDir'
     remote: github
     dest: /home/dgreid/HomeDir
+
+- git:
+    repo: 'https://android.googlesource.com/platform/external/minijail'
+    dest: /home/dgreid/minijail
