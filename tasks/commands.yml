@@ -24,6 +24,10 @@
     shell: git remote add cros https://chromium.googlesource.com/chromiumos/third_party/adhd
     chdir: /home/dgreid/adhd
 
+- name: build/install minijail
+    shell: make && cp *.so /lib64
+    chdir: /home/dgreid/minijail
+
 - name: dgreid is owner
     shell: chown -R dgreid *.*
     chdir: /home/dgreid
