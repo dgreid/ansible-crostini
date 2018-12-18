@@ -1,33 +1,40 @@
 - name: Run home directory setup.
-    shell: /home/dgreid/HomeDir/setup.sh
-    chdir: /home/dgreid
+  command: /home/dgreid/HomeDir/setup.sh
+  args:
+      chdir: /home/dgreid
 
 - name: Install rust compilers
-    shell: curl https://sh.rustup.rs -sSf | sh
+  shell: curl https://sh.rustup.rs -sSf | sh
 
 - name: Install rust-fmt
-    shell: rustup component add rustfmt
+  command: rustup component add rustfmt
 
 - name: crosvm git set push github
-    shell: git remote set-url --push github git@github.com:dgreid/crosvm.git
-    chdir: /home/dgreid/crosvm
+  command: git remote set-url --push github git@github.com:dgreid/crosvm.git
+  args:
+      chdir: /home/dgreid/crosvm
 
 - name: crosvm add cros
-    shell: git remote add cros https://chromium.googlesource.com/chromiumos/platform/adhd
-    chdir: /home/dgreid/crosvm
+  command: git remote add cros https://chromium.googlesource.com/chromiumos/platform/adhd
+  args:
+      chdir: /home/dgreid/crosvm
 
 - name: adhd git set push github
-    shell: git remote set-url --push github git@github.com:dgreid/adhd.git
-    chdir: /home/dgreid/adhd
+  command: git remote set-url --push github git@github.com:dgreid/adhd.git
+  args:
+      chdir: /home/dgreid/adhd
 
 - name: adhd add cros
-    shell: git remote add cros https://chromium.googlesource.com/chromiumos/third_party/adhd
-    chdir: /home/dgreid/adhd
+  command: git remote add cros https://chromium.googlesource.com/chromiumos/third_party/adhd
+  args:
+      chdir: /home/dgreid/adhd
 
 - name: build/install minijail
-    shell: make && cp *.so /lib64
-    chdir: /home/dgreid/minijail
+  command: make && cp *.so /lib64
+  args:
+      chdir: /home/dgreid/minijail
 
 - name: dgreid is owner
-    shell: chown -R dgreid *.*
-    chdir: /home/dgreid
+  command: chown -R dgreid *.*
+  args:
+      chdir: /home/dgreid
