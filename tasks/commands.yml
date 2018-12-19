@@ -1,13 +1,20 @@
 - name: Run home directory setup.
   command: /home/dgreid/HomeDir/setup.sh
   args:
-      chdir: /home/dgreid
+      chdir: /home/dgreid/HomeDir
+  become: yes
+  become_user: dgreid
+  ignore_errors: yes
 
 - name: Install rust compilers
-  shell: curl https://sh.rustup.rs -sSf | sh
+  shell: curl https://sh.rustup.rs -sSf | bash -s -- -y
+  become: yes
+  become_user: dgreid
 
-- name: Install rust-fmt
-  command: rustup component add rustfmt
+  #- name: Install rust-fmt
+  #command: rustup component add rustfmt
+  #become: yes
+  #become_user: dgreid
 
 - name: crosvm git set push github
   command: git remote set-url --push github git@github.com:dgreid/crosvm.git
@@ -18,6 +25,7 @@
   command: git remote add cros https://chromium.googlesource.com/chromiumos/platform/adhd
   args:
       chdir: /home/dgreid/crosvm
+  ignore_errors: yes
 
 - name: adhd git set push github
   command: git remote set-url --push github git@github.com:dgreid/adhd.git
@@ -28,9 +36,15 @@
   command: git remote add cros https://chromium.googlesource.com/chromiumos/third_party/adhd
   args:
       chdir: /home/dgreid/adhd
+  ignore_errors: yes
 
-- name: build/install minijail
-  command: make && cp *.so /lib64
+- name: build minijail
+  command: make -j4
+  args:
+      chdir: /home/dgreid/minijail
+
+- name: install minijail
+  command: cp *.so /lib64
   args:
       chdir: /home/dgreid/minijail
 
