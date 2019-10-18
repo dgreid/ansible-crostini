@@ -11,10 +11,10 @@
   become: yes
   become_user: dgreid
 
-  #- name: Install rust-fmt
-  #command: rustup component add rustfmt
-  #become: yes
-  #become_user: dgreid
+- name: Install rust rls deps
+  command: rustup component add rls rust-analysis rust-src
+  become: yes
+  become_user: dgreid
 
 - name: crosvm git set push github
   command: git remote set-url --push github git@github.com:dgreid/crosvm.git
