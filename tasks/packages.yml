@@ -6,6 +6,6 @@
     - tmux
     - build-essential
     - bc
-    - vim
+    - vim-nox
     - git
     - libcap-dev
